@@ -1,14 +1,19 @@
 //  OpenShift sample Node application
 var express = require('express'),
     fs      = require('fs'),
+    path = require('path'),
     app     = express(),
     eps     = require('ejs'),
-    morgan  = require('morgan');
-    
+    morgan  = require('morgan'),
+    bodyParser = require('body-parser');
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -57,7 +62,7 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
-
+/*
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
@@ -96,9 +101,68 @@ app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
 });
-
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
+});
+
+*/
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cache-Control', 'no-cache');
+    next();
+});
+
+app.get('/api/comments', function(req, res) {
+    if (!db) {
+        initDb(function(err){});
+    }
+    if (db) {
+        var collection = db.collection('post');
+        //查询数据
+        collection.find().sort({"create_time":-1}).toArray(function(err, result) {
+            if(err) {
+                console.log('Error:'+ err);
+                return;
+            }
+            //console.log(result);
+            //console.log(typeof result);
+            //res.end("ok");
+            res.json(result);
+        });
+    });
+});
+
+app.post('/api/comments', function(req, res) {
+    if (!db) {
+        initDb(function(err){});
+    }
+    if (db) {
+        //连接到表  
+        var collection = db.collection('post');
+        //插入数据
+        var newComment = {
+            author: req.body.author,
+            text: req.body.text,
+            ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress,
+            create_time: new Date().getTime(),
+        };
+        collection.insert(newComment, function(err, result) { 
+            if(err)
+            {
+                console.log('Error:'+ err);
+                return;
+            }     
+        });
+        collection.find().sort({"create_time":-1}).toArray(function(err, result) {
+            if(err) {
+                console.log('Error:'+ err);
+                return;
+            }
+            //console.log(result);
+            res.json(result);
+        });
+    });
 });
 
 app.listen(port, ip);

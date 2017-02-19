@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #337ab7;
+}
+
+a:focus, a:hover {
+    text-decoration: underline;
+    color: #23527c;
+}
+
+label {
+    display: block;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    width: 20em;
+}
+
+textarea {
+    width: 100%;
+    height: 10em;
+    resize: none;
+}
+
+/**/
+.container {
+    width: 85%;
+    margin: 0 auto;
+    /*background-color: yellow;*/
+}
+
+.header {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    /*background-color: blue;*/
+    border-bottom: solid #337ab7 2px;
+}
+
+.header .title {
+    margin-left: 1em;
+    font-weight: bold;
+    float: left;
+}
+
+.header .add-wish {
+    margin-right: 1em;
+    float: right;
+    display: block;
+}
+
+.footer {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    /*background-color: green;*/
+    border-top: solid #337ab7 2px;
+    font-size: 14px;
+    font-weight: bold;
+    clear: both;
+}
+
+.footer .copyright {
+    margin-left: 1em;
+}
+
+.main {
+    margin: 0 auto;
+    padding-bottom: 1em;
+    overflow: hidden;
+    /*background-color: grey;*/
+}
+
+.wish {
+    background: #F0F8FF;
+    float: left;
+    width: 30%;
+    height: 260px;
+    margin: 1em 0 0 2.5%;
+    border-radius: 0.5em;
+    box-shadow: 0.5em 0.5em 0.25em #888888;
+    min-width: 280px;
+}
+
+.wish .content {
+    margin: 0;
+    height: 230px;
+    /*background: blue;*/
+}
+.wish .author {
+    bottom: 0;
+    background: #333;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius: 0 0 0.5em 0.5em;
+}
+
+.wish:focus, .wish:hover {
+    background: #337ab7;
+    color: white;
+}
+
+.text {
+    margin-left:1em;
+}
+
+.wish .content .text {
+    float: left;
+    margin-top: 10px;
+}
+
+.wish .author .time {
+    float: right;
+    margin-right: 1em;
+}
+
+#add-wish-box {
+    width: 100%;
+}
+
+.wish-field {
+    color: white;
+    display: none;
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    padding: 1em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #337ab7;
+    border-radius: 0.5em;
+}
+
+.wish-field div {
+    margin-bottom: 1em;
+    font-size: 14px;
+}
+
+.wish-field .title {
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: solid #ffffff 2px;
+}
+
+.wish-field .title img {
+    float: right;
+    cursor:pointer;
+}

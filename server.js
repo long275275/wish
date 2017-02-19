@@ -130,7 +130,7 @@ app.get('/api/comments', function(req, res) {
             //res.end("ok");
             res.json(result);
         });
-    });
+    }
 });
 
 app.post('/api/comments', function(req, res) {
@@ -162,7 +162,7 @@ app.post('/api/comments', function(req, res) {
             //console.log(result);
             res.json(result);
         });
-    });
+    }
 });
 
 app.listen(port, ip);

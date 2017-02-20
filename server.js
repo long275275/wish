@@ -113,6 +113,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/', function (req, res) {
+    res.render('index.html');
+});
+
 app.get('/api/comments', function(req, res) {
     if (!db) {
         initDb(function(err){});

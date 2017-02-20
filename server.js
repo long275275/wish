@@ -9,8 +9,8 @@ var express = require('express'),
 
 Object.assign=require('object-assign')
 
-app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
+//app.engine('html', require('ejs').renderFile);
+//app.use(morgan('combined'))
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -113,9 +113,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', function (req, res) {
+/*app.get('/', function (req, res) {
     res.render('index.html');
-});
+});*/
 
 app.get('/api/comments', function(req, res) {
     if (!db) {
